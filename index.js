@@ -2,19 +2,13 @@ const express = require('express')
 const uuid = require('uuid')
 const app = express()
 app.use(express.json())
-
 const port = 3000
-
 const clients = []
 
 const checkOrderId = (request, response, next) => {
     const { id } = request.params
-
     const index = clients.findIndex(client => client.id === id)
     const findAOrder = clients.findIndex(client => client.id === id)
-    
-    
-    
     
     if(index || findAOrder < 0) {
         return response.status(404).json({error: "Order not found"})
@@ -58,7 +52,6 @@ app.put('/order/:id', checkOrderId, checkUrl, (request, response) => {
         return response.status(404).json({error: "Order not found"})
     }
     */
-    
     const index = request.orderIndex
     const id = request.orderId
     const { order, clientName, price, status } = request.body
@@ -91,7 +84,6 @@ app.get('/order/:id', checkOrderId, checkUrl, (request, response) => {
     
     const findAOrder = clients.find(client => client.id === id)
     
-    
     return response.status(201).json(findAOrder)
 
 })
@@ -107,8 +99,6 @@ app.patch('/order/:id', checkOrderId, checkUrl, (request, response) => {
 
     return response.status(201).json(readyOrder)
 })
-
-
 
 app.listen(port, () => {
     console.log(`✔ Server started on port ${port}`)
